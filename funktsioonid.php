@@ -21,8 +21,20 @@ function naitatabel()
         echo "<tr>";
         echo "<td>{$president}</td>";
         echo "<td>{$punktid}</td>";
+        echo "<td>{$kommentaarid}</td>";
         echo "<td><a href='?lisa1punkt={$id}'>+1 punkt</a></td>";
+        echo "<td><a href='?vota1punkt={$id}'>-1 punkt</a></td>";
         echo "<td><a href='?kustutapresident={$id}'>Kustuta</a></td>";
+        echo "<td><a href='?naita={$id}'>naita</a></td>";
+        echo "<td><a href='?peida={$id}'>peida</a></td>";
+        echo "<td>
+<form method='post' action=''>
+    <input type='hidden' name='uue_komment_id' value='$id'>
+    <input type='text' name='uus_kommentaar' id='uus_kommentaar'>
+    <input type='submit' value='ok'>
+</form>
+</td>";
+        echo "</tr>";
         echo "</tr>";
     }
 }
@@ -39,6 +51,39 @@ function kustutapresident($id){
     global $yhendus;
     $paring = $yhendus->prepare("DELETE FROM valimised WHERE id=?");
     $paring->bind_param("i", $id);
+    $paring->execute();
+    $yhendus->close();
+}
+function lisakommentaar(){
+    global $yhendus;
+        $paring = $yhendus->prepare("UPDATE valimised SET kommentaarid=concat(kommentaarid, ?) WHERE id=?");
+        $komment2="\n".$_REQUEST['uus_kommentaar']."\n";
+        $paring->bind_param("si",$komment2, $_REQUEST["uue_komment_id"]);
+        $paring->execute();
+        $yhendus->close();
+
+}
+
+function naita($id){
+    global $yhendus;
+        $paring = $yhendus->prepare("UPDATE valimised SET avalik=1 WHERE id=?");
+        $paring->bind_param("i", $_REQUEST["naita"]);
+        $paring->execute();
+        $yhendus->close();
+}
+
+function peida($id){
+    global $yhendus;
+        $paring = $yhendus->prepare("UPDATE valimised SET avalik=0 WHERE id=?");
+        $paring->bind_param("i", $_REQUEST["peida"]);
+        $paring->execute();
+        $yhendus->close();
+
+}
+function vota1punkt($id){
+    global $yhendus;
+    $paring = $yhendus->prepare("UPDATE valimised SET punktid=punktid-1 WHERE id=?");
+    $paring->bind_param("i", $_REQUEST["vota1punkt"]);
     $paring->execute();
     $yhendus->close();
 }

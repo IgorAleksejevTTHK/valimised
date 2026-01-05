@@ -18,6 +18,27 @@ if (isset($_REQUEST["kustutapresident"])) {
     header("Location: ".$_SERVER["PHP_SELF"]);
     exit();
 }
+if (isset($_POST["uue_komment_id"]) && !empty($_POST["uus_kommentaar"])) {
+    lisakommentaar();
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
+if(isset($_REQUEST["naita"])) {
+    naita((int)$_REQUEST["id"]);
+    header("Location: $_SERVER[PHP_SELF]");
+    exit();
+}
+if(isset($_REQUEST["peida"])) {
+    peida((int)$_REQUEST["id"]);
+    header("Location: $_SERVER[PHP_SELF]");
+    exit();
+}
+if(isset($_REQUEST["vota1punkt"])) {
+    vota1punkt($_REQUEST["vota1punkt"]);
+    header("Location: $_SERVER[PHP_SELF]");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,7 +53,7 @@ if (isset($_REQUEST["kustutapresident"])) {
 
         <th>Punktid</th>
 
-        <th>+1 punkt</th>
+        <th><Kommentaar></Kommentaar></th>
 
     </tr>
     <?php
@@ -55,5 +76,6 @@ if (isset($_REQUEST["kustutapresident"])) {
     <input type="submit" value="Lisa president">
 
 </form>
+
 </body>
 </html>
