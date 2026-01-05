@@ -12,6 +12,12 @@ if(isset($_REQUEST["presidentNimi"]) && !empty($_REQUEST["presidentNimi"])) {
     header("Location: $_SERVER[PHP_SELF]");
     exit();
 }
+
+if (isset($_REQUEST["kustutapresident"])) {
+    kustutapresident((int)$_REQUEST["kustutapresident"]);
+    header("Location: ".$_SERVER["PHP_SELF"]);
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
