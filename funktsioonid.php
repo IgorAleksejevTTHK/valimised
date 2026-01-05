@@ -25,8 +25,9 @@ function naitatabel()
         echo "<td><a href='?lisa1punkt={$id}'>+1 punkt</a></td>";
         echo "<td><a href='?vota1punkt={$id}'>-1 punkt</a></td>";
         echo "<td><a href='?kustutapresident={$id}'>Kustuta</a></td>";
-        echo "<td><a href='?naita={$id}'>naita</a></td>";
-        echo "<td><a href='?peida={$id}'>peida</a></td>";
+        echo "<td><a href='?naita={$id}'>Naita</a></td>";
+        echo "<td><a href='?peida={$id}'>Peida</a></td>";
+        echo "<td><a href='?delete_komment_id={$id}'>Kustuta kommentaar</a></td>";
         echo "<td>
 <form method='post' action=''>
     <input type='hidden' name='uue_komment_id' value='$id'>
@@ -86,4 +87,11 @@ function vota1punkt($id){
     $paring->bind_param("i", $_REQUEST["vota1punkt"]);
     $paring->execute();
     $yhendus->close();
+}
+function kustutakommentaar($id){
+    global $yhendus;
+    $paring = $yhendus->prepare("UPDATE valimised SET kommentaarid='' WHERE id=?");
+    $paring->bind_param("i", $id);
+    $paring->execute();
+    $paring->close();
 }

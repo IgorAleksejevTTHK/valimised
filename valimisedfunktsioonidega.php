@@ -39,6 +39,12 @@ if(isset($_REQUEST["vota1punkt"])) {
     header("Location: $_SERVER[PHP_SELF]");
     exit();
 }
+if (isset($_REQUEST["delete_komment_id"])) {
+    kustutakommentaar((int)$_REQUEST["delete_komment_id"]);
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit();
+}
+
 ?>
 <!DOCTYPE html>
 <html>
