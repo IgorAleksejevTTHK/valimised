@@ -6,7 +6,12 @@ if(isset($_REQUEST["lisa1punkt"])) {
     header("Location: $_SERVER[PHP_SELF]");
     exit();
 }
-
+//päring lisaPresident funktsiooni otsimiseks
+if(isset($_REQUEST["presidentNimi"]) && !empty($_REQUEST["presidentNimi"])) {
+    lisapresident($_REQUEST["presidentNimi"],$_REQUEST["pilt"]);
+    header("Location: $_SERVER[PHP_SELF]");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,5 +34,17 @@ if(isset($_REQUEST["lisa1punkt"])) {
      naitatabel()
     ?>
 </table>
+
+<h2>Lisa oma presidendi</h2>
+<form action="?">
+    <label for="presidentNimi">President nimi: </label>
+    <input type="text" name="presidentNimi" id="presidentNimi">
+    <br>
+    <label for="pilt">President pilt: </label>
+    <textarea name="pilt" id="pilt"></textarea>
+    <br>
+    <input type="submit" value="Lisa president">
+
+</form>
 </body>
 </html>

@@ -14,7 +14,7 @@ function lisapunkt($id){
 function naitatabel()
 {
     global $yhendus;
-    $paring = $yhendus->prepare("SELECT id, president, pilt, punktid, lisamisaeg, kommentaarid from valimised WHERE avalik=1");
+    $paring = $yhendus->prepare("SELECT id, president, pilt, punktid, lisamisaeg, kommentaarid from valimised WHERE avalik=1 or avalik=0");
     $paring->bind_result($id, $president, $pilt, $punktid, $lisamisaeg, $kommentaarid);
     $paring->execute();
     while ($paring->fetch()) {
